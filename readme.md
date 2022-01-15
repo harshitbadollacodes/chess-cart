@@ -45,18 +45,13 @@ Bootstrapped with `create-react-app`
 
 1. **Clone the repo:**
 ```bash
-  $ git clone https://github.com/
+  $ git clone https://github.com/harshitbadollacodes/chess-cart.git
 ```
-2. **Switch to `development` branch:**
-```bash
-  $ cd chess-cart
-  $ git checkout development
-```
-3. **Install required node modules:**
+2. **Install required node modules:**
 ```bash
   $ npm install
 ```
-4. **Start the dev server:**
+3. **Start the dev server:**
 ```bash
   $ npm start
 ```
