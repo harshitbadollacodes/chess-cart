@@ -2,7 +2,7 @@ import "./productDetails.css";
 import axios from "axios";
 import { API } from "../../config/constants";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { FaRegHeart, FaHeart, FaHeartBroken, FaCartArrowDown } from "react-icons/fa";
+import { FaRegHeart, FaHeartBroken, FaCartArrowDown } from "react-icons/fa";
 import { useState } from "react";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";

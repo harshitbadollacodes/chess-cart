@@ -2,7 +2,6 @@ import "./address.css";
 import axios from "axios";
 import { API } from "../../config/constants";
 import { useState } from "react";
-import { Loader } from "../../components/Loader";
 import { useAddressContext } from "../../context/AddressContext";
 import { AddressForm } from "../../components/Address/AddressForm";
 import { useNavigate } from "react-router-dom";
@@ -14,8 +13,6 @@ export function Address() {
     const { addressState, addressDispatch } = useAddressContext();
     const { wishlistDispatch } = useWishlistContext();
     const { cartDispatch } = useCartContext();
-    
-    const [selectedAddress, setSelectedAddress] = useState(null);
 
     const [displayAddressForm, setDisplayAddressForm] = useState(false);
 

@@ -8,7 +8,7 @@ const AddressContext = createContext();
 
 export const AddressProvider = ({children}) => {
 
-    const { token, userId } = useAuthContext();
+    const { token } = useAuthContext();
     const [addressState, addressDispatch] = useReducer(addressReducer, initialState);
 
     useEffect(() => {
