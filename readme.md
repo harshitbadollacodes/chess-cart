@@ -7,9 +7,9 @@ An E-commerce app built with React ⚛
 PREVIEW TO BE ADDED
 
 
-Deployed app: [https://chesscart.netlify.app](https://chesscart.netlify.app)
+Deployed app: [https://chesscart.netlify.app](https://chess-cart.netlify.app)
 
-Backend source code (Express & Mongoose): [https://github.com/harshitbadollacodes/chesscart-BE](https://github.com/harshitbadollacodes/chesscart-BE)
+Backend source code (Express & Mongoose): [https://github.com/harshitbadollacodes/chesscart-BE](https://github.com/harshitbadollacodes/chesscart_BE)
 
 ### Features:
 1. Local storage persistence of auth state
