@@ -1,0 +1,93 @@
+@import url("https://flash-ui.netlify.app/docs.css");
+
+.desktop-only {
+  display: none;
+}
+
+/* Utility */ 
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+/* Cart */
+.cart-li,
+.cart-bill {
+  margin: 0rem 0.5rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.cart-card {
+  display: flex;
+}
+
+.cart-img {
+  width: 40%;
+  /* height: fit-content; */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.qty-btn {
+  display: flex;
+  align-items: center;
+}
+
+/* Wishlist */
+.increment-btn,
+.decrement-btn {
+  font-weight: bold;
+  font-size: 1rem;
+  background: none;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.remove-wishlist-btn {
+  display: flex;
+  width: 98%;
+  max-width: 98%;
+  margin: 0 auto;
+  border-top: 1px solid #333;
+}
+
+.btn-rm{
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 40%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-right: 1px solid #333;
+}
+
+.btn-wishlist {
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+  width: 60%;
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 600px) {  
+  .cart-desktop {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .cart-bill {
+    width: 50%;
+  } 
+
+  .desktop-only {
+    display: block;
+  }
+}

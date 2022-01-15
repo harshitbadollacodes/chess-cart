@@ -1,0 +1,15 @@
+.login,
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center
+}
+
+@media only screen and (min-width: 600px) {
+    .width-70 {
+        width: 400px;
+    }
+}   
+

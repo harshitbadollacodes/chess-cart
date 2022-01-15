@@ -1,0 +1,18 @@
+.banner {
+    background: url("../../images/chessBanner.jpeg") no-repeat center center/cover;
+    width: 100%;
+    height: 95vh;
+}
+
+.bg-overlay {
+    background: rgba(0, 0, 0, 0.2);
+    height: 100%;
+}
+
+.height-100 {
+    height: 100%;
+}
+
+.w-20 {
+    min-width: 20%
+}

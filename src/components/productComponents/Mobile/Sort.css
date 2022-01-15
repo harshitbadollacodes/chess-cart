@@ -1,0 +1,16 @@
+.sortBtn,
+.filterBtn {
+    width: 50%;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.sort-options,
+.filter-options {
+    position: fixed;
+    bottom: 50px;
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+}

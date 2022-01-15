@@ -1,0 +1,36 @@
+.address-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.justify-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.p-50 {
+    padding: 0.5rem 0;
+}
+
+.my-1point5 {
+  margin: 1.5rem 0;
+}
+
+.width-full {
+    width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+
+    .address-flex {
+        flex-direction: row;
+    }
+
+    .width-full {
+        width: 40%;
+    }
+}

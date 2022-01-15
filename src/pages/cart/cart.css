@@ -1,0 +1,31 @@
+.cart-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cart-btn-margin {
+    margin-top: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cart-flex {
+        flex-direction: row;
+    }    
+
+    .cart-btn-margin {
+        margin-top: 0;
+        margin-left: 15px;
+    }
+}
