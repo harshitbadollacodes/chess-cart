@@ -4,7 +4,7 @@ An E-commerce app built with React ⚛
 
 ### Preview
 
-PREVIEW TO BE ADDED
+![chess-cart preview](src/images/Preview.png)
 
 
 Deployed app: [https://chesscart.netlify.app](https://chess-cart.netlify.app)
