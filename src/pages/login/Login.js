@@ -52,23 +52,6 @@ export const Login = () => {
                 
                 navigate("/");
 
-                const getCart = await axios.get(`${API}/cart`);
-
-                if (getCart.status === 200) {
-                    dispatch({
-                        type: "LOAD_CART",
-                        payload: getCart.data.cart.cartItems
-                    });
-                };
-
-                const getWishlist = await axios.get(`${API}/wishlist`);
-
-                if (getWishlist.status === 200) {
-                    dispatch({
-                        type: "LOAD_WISHLIST",
-                        payload: getWishlist.data.wishlist.wishlistItems
-                    });
-                };
             }
         } catch(error) {
             console.log(error);
@@ -101,24 +84,6 @@ export const Login = () => {
                     setUserId(userId);
                     
                     navigate(userComingFrom);
-
-                    const getCart = await axios.get(`${API}/cart`);
-    
-                    if (getCart.status === 200) {
-                        dispatch({
-                            type: "LOAD_CART",
-                            payload: getCart.data.cart.cartItems
-                        });
-                    };
-    
-                    const getWishlist = await axios.get(`${API}/wishlist`);
-    
-                    if (getWishlist.status === 200) {
-                        dispatch({
-                            type: "LOAD_WISHLIST",
-                            payload: getWishlist.data.wishlist.wishlistItems
-                        });
-                    };
 
                 }
 
