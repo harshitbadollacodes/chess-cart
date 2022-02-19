@@ -145,8 +145,6 @@ export const Login = () => {
                             Guest Login
                         </button>
                     }
-                    
-
                 </div>
             </div>
         </div>
