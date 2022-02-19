@@ -9,7 +9,7 @@ export const WishlistContext = createContext();
 
 export const WishlistProvider = ({children}) => {
 
-    const { token, userId } = useAuthContext();
+    const { token } = useAuthContext();
 
     useEffect(() => {
         (async () => {
@@ -29,7 +29,7 @@ export const WishlistProvider = ({children}) => {
                 console.log({error});
             }
         })()
-    }, [token, userId]);
+    }, [token]);
 
     const [wishlistState, wishlistDispatch] = useReducer(wishlistReducer, initialState);
 

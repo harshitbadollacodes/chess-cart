@@ -8,7 +8,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
-    const { token, userId } = useAuthContext();
+    const { token } = useAuthContext();
 
     const [cartState, cartDispatch] = useReducer(cartReducer, initialState);
 
@@ -16,6 +16,7 @@ export const CartProvider = ({ children }) => {
         (async () => {
             try {
                 if (token) {
+                    console.log("i am running");
                     setupAuthHeaderForServiceCalls(token);
                     
                     const {data: {cart: { cartItems } }, status} = await axios.get(`${API}/cart/`);
@@ -33,7 +34,7 @@ export const CartProvider = ({ children }) => {
             }
         })()
         
-    }, [token, userId]);
+    }, [token]);
 
     
 
