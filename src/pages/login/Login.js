@@ -5,7 +5,6 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { setupAuthHeaderForServiceCalls, useAuthContext } from "../../context/AuthContext";
 import { Logout } from "./Logout";
 import { API } from "../../config/constants";
-import { useProductContext } from "../../context/ProductsContext";
 
 export const Login = () => {
 
@@ -21,7 +20,6 @@ export const Login = () => {
 
     const { state } = useLocation();
     
-    const { dispatch } = useProductContext();
     const navigate = useNavigate();
 
     const [userInput, setUserInput] = useState({
