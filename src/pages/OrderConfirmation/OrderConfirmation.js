@@ -4,7 +4,6 @@ import { useAddressContext } from "../../context/AddressContext"
 export function OrderConfirmation() {
 
     const { addressState: {shippingAddress} } = useAddressContext();
-    console.log(shippingAddress);
 
     return (
         <div className="container">
