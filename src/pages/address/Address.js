@@ -15,6 +15,7 @@ export function Address() {
     const { cartDispatch } = useCartContext();
 
     const [displayAddressForm, setDisplayAddressForm] = useState(false);
+    const [shippingAddress, setShippingAddress] = useState(null);
 
     const navigate = useNavigate();
 
@@ -45,10 +46,15 @@ export function Address() {
     };
 
     function shipHandler(address) {
-        navigate("/orderConfirmed");
+        // navigate("/orderConfirmed");
         addressDispatch({type: "SET_SHIPPING_ADDRESS", payload: address });
-        cartDispatch({ type: "CLEAR_SESSION"});
-        wishlistDispatch({ type: "CLEAR_SESSION" })
+        setShippingAddress(address);
+        // cartDispatch({ type: "CLEAR_SESSION"});
+        // wishlistDispatch({ type: "CLEAR_SESSION" })
+    }
+
+    function paymentHandler() {
+        console.log("loggin");
     }
 
     return (
@@ -59,7 +65,11 @@ export function Address() {
                     addressState.addresses.map(address => (
                         <li 
                             key={address._id} 
-                            className="border radius-5 width-full my-1 p1 flex-col cursor-pointer"
+                            className={`
+                                ${addressState?.shippingAddress?._id === address._id 
+                                && "bg-powderblue"} 
+                                border radius-5 width-full my-1 p1 flex-col cursor-pointer
+                            `}
                         >
                             <address className="flex-grow-1 cursor-pointer">
                                 <h3>{address.fullName}</h3>
@@ -70,7 +80,11 @@ export function Address() {
 
                             <div>
                                 <button 
-                                    className="btn btn-primary"
+                                    className={`
+                                        ${addressState?.shippingAddress?._id === address._id 
+                                        && "bg-green"} 
+                                        btn btn-primary
+                                    `}
                                     onClick={() => shipHandler(address)}
                                 >
                                     Ship Here
@@ -102,6 +116,16 @@ export function Address() {
             >
                 Set New Address
             </button>
+            
+            { 
+                shippingAddress && 
+                <button 
+                    className={`btn mx-1 btn-primary `}
+                    onClick={paymentHandler}
+                >
+                    Proceed To Payment
+                </button>
+            }
 
             {
                 displayAddressForm && 

@@ -51,7 +51,7 @@ export function AddressForm({setDisplayAddressForm}) {
     return (
         <div>
 
-            <form onSubmit={(e) => addressFormHandler(e)} className="flex w-50 my-1point5">
+            <form onSubmit={(e) => addressFormHandler(e)} className="flex width-full my-1point5">
                 <h3 className="mb-1">Please fill in the address</h3>
                 <div className="flex-col mb-1">
                     <label> Full Name: </label>

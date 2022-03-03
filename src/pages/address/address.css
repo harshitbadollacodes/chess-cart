@@ -1,3 +1,11 @@
+.bg-green {
+    background: #059669;
+}
+
+.bg-powderblue {
+    background: #9bbec4
+}
+
 .address-flex {
     display: flex;
     flex-direction: column;
