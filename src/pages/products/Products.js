@@ -120,7 +120,7 @@ export const Products = () => {
                                 <img 
                                     src={product.image} 
                                     alt={product.name} 
-                                    className="width-100" 
+                                    className="width-100 img-height" 
                                 />
                             </Link>
                             <div className="flex-row items-center justify-between">
