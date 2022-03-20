@@ -100,8 +100,6 @@ export const ProductDetails = () => {
         })();
     }, [product]);
 
-    
-
     return (
         <div className="container">
             {
@@ -113,8 +111,9 @@ export const ProductDetails = () => {
                         <div>
                             <h3>{product.name}</h3>
                             <p>{product.brand}</p>
+                            <p>{product.description}</p>
                         </div>
-                        <h3>Rs. {product.price}</h3>
+                            <h3>Rs. {product.price}</h3>
                         <div>
                         {isProductInWishlist(product._id) ?  
                             <button
