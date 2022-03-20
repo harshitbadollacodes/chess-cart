@@ -65,17 +65,16 @@ export function Address() {
                 "name": "Chesscart",
                 "order_id": order.id,
                 "handler": function (response){
-                    console.log(response);
                     
-                    const generated_signature = hmac_sha256(order.id + "|" + response.razorpay_payment_id, "7ffWU2RPFCi5tfnieHK9WWMk");
+                    // const generated_signature = hmac_sha256(order.id + "|" + response.razorpay_payment_id, "7ffWU2RPFCi5tfnieHK9WWMk");
 
-                    if (generated_signature == response.razorpay_signature) {
-                        console.log("payment is successful")
-                    };
+                    // if (generated_signature == response.razorpay_signature) {
+                    //     console.log("payment is successful")
+                    // };
 
-                    // if(response.razorpay_payment_id) {
-                    //     navigate("/orderConfirmed");
-                    // }
+                    if(response.razorpay_payment_id) {
+                        navigate("/orderConfirmed");
+                    }
                 },
                 prefill: {
                     "name": shippingAddress.fullName,
