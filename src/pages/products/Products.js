@@ -117,7 +117,11 @@ export const Products = () => {
                     {getFilteredProducts.map(product => (
                         <li key={product._id} className="width-25 p025 product-card-width">
                             <Link to={`/product/${product._id}`}>
-                                <img src={product.image} alt={product.name} className="width-100" />
+                                <img 
+                                    src={product.image} 
+                                    alt={product.name} 
+                                    className="width-100 img-height" 
+                                />
                             </Link>
                             <div className="flex-row items-center justify-between">
                                 <Link to={`/product/${product._id}`}>
@@ -147,7 +151,7 @@ export const Products = () => {
                                 {isProductInCart(product._id) ? 
                                     (
                                         <Link className="btn btn-primary width-100 btn-green" to="/cart">
-                                        Go To Cart
+                                            Go To Cart
                                         </Link>
                                     )
                                     :
