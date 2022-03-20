@@ -115,12 +115,12 @@ export const Products = () => {
                 <DesktopSortFilterOptions/>
                 <ul className="flex-row flex-wrap width-100 items-center">
                     {getFilteredProducts.map(product => (
-                        <li key={product._id} className="width-25 p025 product-card-width">
+                        <li key={product._id} className="p025 product-card-width">
                             <Link to={`/product/${product._id}`}>
                                 <img 
                                     src={product.image} 
                                     alt={product.name} 
-                                    className="width-100 img-height" 
+                                    className="width-100" 
                                 />
                             </Link>
                             <div className="flex-row items-center justify-between">
