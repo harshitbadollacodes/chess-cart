@@ -1,12 +1,25 @@
 .banner {
     background: url("../../images/chessBanner.jpeg") no-repeat center center/cover;
     width: 100%;
-    height: 95vh;
+    height: 100vh;
 }
 
 .bg-overlay {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.6);
     height: 100%;
+}
+
+.l-heading {
+    font-size: 1.75rem;
+    width: 100%;
+}
+
+.header-logo {
+    width: 2rem;
+}
+
+.tagline {
+    width: 100%;
 }
 
 .height-100 {
@@ -14,5 +27,20 @@
 }
 
 .w-20 {
-    min-width: 20%
+    width: 20vw;
 }
+
+@media only screen and (min-width: 600px) {  
+    .l-heading {
+        font-size: 4rem;
+        color: #fff
+    }
+
+    .tagline {
+        font-size: 1.5rem;
+    }
+
+    .header-logo {
+        width: 4rem;
+    }
+} 
