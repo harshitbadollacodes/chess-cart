@@ -6,13 +6,6 @@
     height: 20em;
 }
 
-.text-ellipsis {
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-    /* width: 40%; */
-}
-
 .product-card-width {
     width: 50%;
 }
