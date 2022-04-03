@@ -6,18 +6,24 @@ import { EmptyCart } from "../../components/cartComponents/EmptyCart";
 import { updateQuantity, removeItemFromCart, updateWishlist } from "../../utilityFunctions/networkCalls";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
+import { Spinner } from "../../components/Spinner";
 
 export const Cart = () => {
 
-    const { cartState, cartDispatch } = useCartContext();
+    const { isLoading, cartState, cartDispatch } = useCartContext();
     const { wishlistDispatch } = useWishlistContext();
 
-    const [isLoading] = useState(false);
+    const [removeId, setRemoveId] = useState(null);
+    const [wishlistId, setWishlistId] = useState(null);
+    const [decQuantityId, setDecQuantityId] = useState(null);
+    const [incQuantityId, setIncQuantityId] = useState(null);
 
     async function removeFromCart(productId, item) {
+        setRemoveId(productId);
         const status = await removeItemFromCart(productId);
         
         if (status === 200) {
+            setRemoveId(null);
             cartDispatch({
                 type: "REMOVE_FROM_CART",
                 payload: item.product
@@ -26,10 +32,12 @@ export const Cart = () => {
     };
 
     async function decrementQuantity(productId, item) {
+        setDecQuantityId(productId);
         const quantity = item.quantity - 1;
         const status = await updateQuantity(productId, quantity);
 
         if (status === 200) {
+            setDecQuantityId(null);
             cartDispatch({
                 type: "DECREMENT",
                 payload: item.product
@@ -39,10 +47,12 @@ export const Cart = () => {
 
 
     async function incrementQuantity(productId, item) {
+        setIncQuantityId(productId);
         const quantity = item.quantity + 1;
         const status = await updateQuantity(productId, quantity);
 
         if (status === 200) {
+            setIncQuantityId(null);
             cartDispatch({
                 type: "INCREMENT",
                 payload: item.product
@@ -51,10 +61,17 @@ export const Cart = () => {
     };
 
     async function moveToWishlist(productId, item) {        
+
+        setWishlistId(productId);
+
+        console.log(productId)
+        console.log(productId === wishlistId)
+
         const moveToWishlistStatus = await updateWishlist(productId);
         const removeItemStatus = await removeItemFromCart(productId);
 
         if (moveToWishlistStatus === 200 && removeItemStatus === 200) {
+            setWishlistId(null);
             wishlistDispatch({
                 type: "ADD_TO_WISHLIST",
                 payload: item
@@ -79,8 +96,12 @@ export const Cart = () => {
                 <ul>
                     {cartState.cart.map((item) => (
                         <li key={item.product._id} className="flex-row mb-1 p-1 border radius-5">
-                            <img src={item.product.image} alt={item.product.name} className="width-40"/>
-                            <div className="flex-col justify-space-evenly" >
+                            <img 
+                                src={item.product.image} 
+                                alt={item.product.name} 
+                                className="width-40 mx-1 img-height"
+                            />
+                            <div className="flex-col justify-space-evenly mx-1">
                                 <div className="product-details">
                                     <h3>{item.product.name}</h3>
                                     <p>{item.product.brand}</p>
@@ -93,7 +114,7 @@ export const Cart = () => {
                                             decrementQuantity(item.product._id, item);
                                         }}
                                     >   
-                                        -
+                                        {decQuantityId ? <Spinner/> : "-"}
                                     </button>
 
                                     <p className="text-m ml-15">{item.quantity}</p>
@@ -104,24 +125,27 @@ export const Cart = () => {
                                             incrementQuantity(item.product._id, item);
                                         }}
                                     >
-                                        +
+                                        {incQuantityId ? <Spinner/> : "+"}
+
                                     </button>
                                 </div>
-                                <div className="cart-flex">
+
+                                <div>
                                     <button 
-                                        className="btn btn-primary btn-red text-uppercase" 
+                                        className="btn width-100 btn-primary btn-red text-uppercase" 
                                         onClick={() => {
                                             removeFromCart(item.product._id, item)
                                         }}
                                     >
-                                        Remove
+                                        { removeId === item.product._id && <Spinner/> } Remove
                                     </button>
                                     <button  
-                                        className="btn btn-primary text-uppercase cart-btn-margin" 
+                                        className="btn width-100 btn-primary text-uppercase my-1" 
                                         onClick={() => {
                                             moveToWishlist(item.product._id, item)
                                         }}
                                     >
+                                        {wishlistId === item.product._id && <Spinner/>}
                                         Move to Wishlist
                                     </button>
                                 </div>

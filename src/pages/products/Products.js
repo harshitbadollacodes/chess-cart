@@ -10,9 +10,13 @@ import { updateCart } from "../../utilityFunctions/networkCalls";
 import { updateWishlist, removeItemFromWishlist } from "../../utilityFunctions/networkCalls";
 import { useCartContext } from "../../context/CartContext";
 import { useWishlistContext } from "../../context/WishlistContext";
+import { useState } from "react";
+import { Spinner } from "../../components/Spinner";
 
 export const Products = () => {
     
+    const [productId, setProductId] = useState(false);
+    const [spinner, setSpinner] = useState(false);
     const { state, data, isLoading } = useProductContext();
     const { cartState, cartDispatch } = useCartContext();
     const { wishlistState, wishlistDispatch } = useWishlistContext();
@@ -26,13 +30,16 @@ export const Products = () => {
 
     const isProductInCart = (productId) => {
         return cartState.cart.find(item => item.product._id === productId);
-    }
+    };
     
     async function addToCart(productId, item) {
+        setSpinner(true);
+        setProductId(productId);
         if (token) {
             const updateCartStatus = await updateCart(productId, item);
             
             if (updateCartStatus === 200) {
+                setSpinner(false);
                 cartDispatch({
                     type: "ADD_TO_CART",
                     payload: {
@@ -44,6 +51,7 @@ export const Products = () => {
         } else {
             navigate("/login");
         }
+        
     }
 
     async function addToWishlist(productId, item) {
@@ -166,7 +174,15 @@ export const Products = () => {
                                             onClick={() => {
                                                 addToCart(product._id, product);
                                             }}>
-                                                {product.inStock ? "Add To Cart": "Out Of Stock"}
+                                                {productId === product._id && <Spinner/>}
+                                                
+                                                {
+                                                    product.inStock 
+                                                    ? productId === product._id 
+                                                    ? "Adding To Cart..." : "Add To Cart"
+                                                    : "Out of Stock"
+                                                }
+
                                         </button>
                                     )
                                 }

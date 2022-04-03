@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { API } from "../../config/constants";
 import { useAddressContext } from "../../context/AddressContext";
-
+import { Spinner } from "../Spinner";
 
 
 export function AddressForm({setDisplayAddressForm}) {
@@ -13,12 +13,14 @@ export function AddressForm({setDisplayAddressForm}) {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [pincode, setPincode] = useState("");
+    const [spinner, setSpinner] = useState(false);
 
     const { addressDispatch } = useAddressContext();
     
 
     async function addressFormHandler(e) {   
         e.preventDefault();
+        setSpinner(true);
         try {
             const { data: { saveAddress }, status }  = await axios.post(`${API}/address/new`, {
                 fullName,
@@ -43,8 +45,11 @@ export function AddressForm({setDisplayAddressForm}) {
             }
             
         } catch(error) {
+            setSpinner(false);
             console.log({error});
             console.log(error.response.data.message);
+        } finally {
+            setSpinner(false);
         }
     };
 
@@ -121,11 +126,13 @@ export function AddressForm({setDisplayAddressForm}) {
                         onChange={(e) => setPincode(e.target.value)}/>
                 </div>
                     <div>
-                        <input
+                        <button
                             type="submit" 
-                            value="Add Address" 
                             className="btn btn-primary"
-                        />
+                        >
+                            {spinner && <Spinner/>} Add Address
+                        </button>
+                        
                         <button 
                             onClick={() => setDisplayAddressForm(false)}
                             className="btn btn-primary btn-red ml-15"
