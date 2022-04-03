@@ -4,20 +4,21 @@ import { API } from "../../config/constants";
 import { useEffect, useState } from "react";
 import { useAddressContext } from "../../context/AddressContext";
 import { AddressForm } from "../../components/Address/AddressForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartContext } from "../../context/CartContext";
+import { Spinner } from "../../components/Spinner";
 
 export function Address() {
 
-    const { cartState } = useCartContext();
+    const { cartState, cartDispatch } = useCartContext();
+    console.log(cartState);
     const totalCartValue = cartState.cart.reduce((acc, cur) => acc + (cur.quantity * cur.product.price), 0);
     
     const { addressState, addressDispatch } = useAddressContext();
 
+    const [spinner, setSpinner] = useState(false);
     const [displayAddressForm, setDisplayAddressForm] = useState(false);
     const [shippingAddress, setShippingAddress] = useState(null);
-
-    console.log(shippingAddress);
 
     const navigate = useNavigate();
 
@@ -38,10 +39,6 @@ export function Address() {
         }
     }
 
-    function editHandler(addressId) {
-        navigate(`/editAddress/${addressId}`);
-    };
-
     function toggleAddressForm() {
         setDisplayAddressForm(!displayAddressForm);
     };
@@ -49,9 +46,10 @@ export function Address() {
     function shipHandler(address) {
         addressDispatch({type: "SET_SHIPPING_ADDRESS", payload: address });
         setShippingAddress(address);
-    }
+    };
 
     async function paymentHandler() {
+        setSpinner(true);
         try {
             const {data: {order}} = await axios.post(`${API}/razorpay/pay`, {
                 amount: totalCartValue
@@ -64,23 +62,36 @@ export function Address() {
                 "currency": "INR",
                 "name": "Chesscart",
                 "order_id": order.id,
-                "handler": function (response){
-                    
-                    // const generated_signature = hmac_sha256(order.id + "|" + response.razorpay_payment_id, "7ffWU2RPFCi5tfnieHK9WWMk");
-
-                    // if (generated_signature == response.razorpay_signature) {
-                    //     console.log("payment is successful")
-                    // };
-
+                "handler": async (response) => {
                     if(response.razorpay_payment_id) {
-                        navigate("/orderConfirmed");
+                        setSpinner(false);
+                        cartDispatch({ type: "CLEAR_SESSION" });
+
+                        const { status } = await axios.delete(`${API}/cart/clearCart`, {});
+                        
+                        if (status === 200) {
+                            navigate("/orderConfirmed");    
+                        };
+                        
                     }
                 },
                 prefill: {
                     "name": shippingAddress.fullName,
                     "contact": "+919988776655",
                     "email": "example@example.com",
-                }
+                },
+                method: {
+                    netbanking: true,
+                    card: false,
+                    wallet: false,
+                    upi: false,
+                },
+                config: {
+                    display: {
+                        hide: [{ method: "paylater" }],
+                        preferences: { show_default_blocks: true },
+                    },
+                },
             };
             
             let razorpay = new window.Razorpay(options);
@@ -88,9 +99,11 @@ export function Address() {
 
         } catch(error){
             console.log({error});
+            setSpinner(false);
+        } finally {
+            setSpinner(false);
         }
     };
-
     
     useEffect(() => {
         const script = document.createElement('script');
@@ -132,12 +145,12 @@ export function Address() {
                                     Ship Here
                                 </button>
 
-                                <button 
+                                <Link 
+                                    to={`/editAddress/${address._id}`}
                                     className="btn btn-primary my-1 ml-15"
-                                    onClick={() => editHandler(address._id)}
                                 >
                                     Edit
-                                </button>
+                                </Link>
 
                                 <button 
                                     className="btn btn-primary btn-red ml-15"
@@ -154,7 +167,7 @@ export function Address() {
         
             <button 
                 onClick={() => toggleAddressForm()}
-                className={`my-1 btn btn-primary`}
+                className="my-1 btn btn-primary"
             >
                 Set New Address
             </button>
@@ -162,10 +175,11 @@ export function Address() {
             { 
                 shippingAddress && 
                 <button 
-                    className={`btn mx-1 btn-primary bg-green`}
+                    className={`btn ml-10 btn-primary bg-green ${spinner ? "cursor-disabled" : "cursor-pointer"}`}
+                    disabled={spinner}
                     onClick={paymentHandler}
                 >
-                    Proceed To Payment
+                    {spinner && <Spinner/>} Proceed To Payment
                 </button>
             }
 
