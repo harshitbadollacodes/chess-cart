@@ -5,17 +5,23 @@ import { Loader } from "../../components/Loader";
 import { updateCart, removeItemFromWishlist } from "../../utilityFunctions/networkCalls";
 import { useWishlistContext } from "../../context/WishlistContext";
 import { useCartContext } from "../../context/CartContext";
+import { Spinner } from "../../components/Spinner";
 
 export const Wishlist = () => {
     const { wishlistState, wishlistDispatch } = useWishlistContext();
     const { cartState, cartDispatch } = useCartContext();
     const [isLoading] = useState(false);
 
+    const [productId, setProductId] = useState(null);
+    const [wishlistId, setWishlistId] = useState(null);
+
     async function moveToCart(productId, item) {
+        setProductId(productId);
         const removeItemStatus = await removeItemFromWishlist(productId);
         const addItemToCartStatus = await updateCart(productId);
 
         if (removeItemStatus === 200 && addItemToCartStatus === 200) {
+            setProductId(null);
             cartDispatch({
                 type: "ADD_TO_CART",
                 payload: item
@@ -31,9 +37,11 @@ export const Wishlist = () => {
     }
 
     async function removeFromWishlist(productId, item) {
+        setWishlistId(productId);
         const status = await removeItemFromWishlist(productId);
 
         if (status === 200) {
+            setWishlistId(null)
             wishlistDispatch({
                 type: "REMOVE_FROM_WISHLIST",
                 payload: {
@@ -74,10 +82,15 @@ export const Wishlist = () => {
                             <Link className="" to={`/product/${item.product._id}`}>
                                 <h3>{item.product.name}</h3>
                             </Link>
-                            <FaHeart 
-                                onClick={() => removeFromWishlist(item.product._id, item)}
-                                cursor={"pointer"} size={20} 
-                            /> 
+                            {
+                                wishlistId === item.product._id
+                                ? <Spinner/>
+                                : <FaHeart 
+                                    onClick={() => removeFromWishlist(item.product._id, item)}
+                                    cursor={"pointer"} size={20} 
+                                /> 
+                            }
+                            
                         </div>  
                         <Link to={`/product/${item.product._id}`}>
                             <p className="text-xs width-100">{item.product.brand}</p>
@@ -97,6 +110,7 @@ export const Wishlist = () => {
                             }}
                             onClick={() => moveToCart(item.product._id, item)}
                         >
+                            {productId === item.product._id && <Spinner/>}
                             {item.product.inStock ? "Move To Cart" : "Out Of Stock"}
                             </button>
                         )}

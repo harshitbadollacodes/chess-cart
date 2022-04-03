@@ -21,6 +21,8 @@ export const Products = () => {
     const { cartState, cartDispatch } = useCartContext();
     const { wishlistState, wishlistDispatch } = useWishlistContext();
     const { token } = useAuthContext();
+
+    const [wishlistId, setWishlistId] = useState(null);
     
     const navigate = useNavigate();
 
@@ -55,10 +57,12 @@ export const Products = () => {
     }
 
     async function addToWishlist(productId, item) {
+        setWishlistId(productId);
         if (token) {
             const status = await updateWishlist(productId);
             
             if (status === 200) {
+                setWishlistId(null);
                 wishlistDispatch({
                     type: "ADD_TO_WISHLIST",
                     payload: {
@@ -72,11 +76,13 @@ export const Products = () => {
     }
 
     async function removeFromWishlist(productId, item) {
+        setWishlistId(productId);
         if (token) {
 
             const status = await removeItemFromWishlist(productId);
 
             if (status === 200) {
+                setWishlistId(null);
                 wishlistDispatch({
                     type: "REMOVE_FROM_WISHLIST",
                     payload: {
@@ -135,7 +141,11 @@ export const Products = () => {
                                 <Link to={`/product/${product._id}`}>
                                     <h3 className="text-ellipsis">{product.name}</h3>
                                 </Link>
-                                {isProductInWishlist(product._id) ?
+
+                                {
+                                    wishlistId === product._id 
+                                    ? <Spinner/> 
+                                    : isProductInWishlist(product._id) ?
                                     <FaHeart 
                                         onClick={() => { 
                                             removeFromWishlist(product._id, product);
