@@ -27,35 +27,6 @@ export const Login = () => {
         password: ""
     });
 
-    async function guestLoginHandler() {
-        try {
-            const {
-                data: { userId, token }, status } = await axios.post(`${API}/user/login`, {
-                email: "testing@gmail.com",
-                password: "testing"
-            });
-
-            setupAuthHeaderForServiceCalls(token);
-                
-            if (status === 200) {
-                setIsUserLoggedIn(true);
-                setLoading(false);
-                localStorage.setItem("userDetails", JSON.stringify({
-                    userId,
-                    token
-                }));
-                setError(false);
-                setToken(token);
-                setUserId(userId);
-                
-                navigate("/");
-
-            }
-        } catch(error) {
-            console.log(error);
-        }
-    }
-
     async function loginHandler(e) {
         e.preventDefault();
         setLoading(true);
@@ -77,6 +48,7 @@ export const Login = () => {
                         userId,
                         token
                     }));
+                    
                     setError(false);
                     setToken(token);
                     setUserId(userId);
@@ -102,9 +74,9 @@ export const Login = () => {
         <div className="container">
                 <div className="login m1">
                 <div className="flex-col">
-                    <h1 className="login-form-heading mb-1">{token ? "You're logged in" : "Login"}</h1>
+                    <h1 className="login-form-heading mb-1">{token ? "Hello, You're logged in." : "Login"}</h1>
                     
-                    {error && <h3 style={{color: "red"}}>{error}</h3>}
+                    { error && <h3 style={{color: "red"}}>{error}</h3> }
                     
                     { token ? 
                         <Logout/> 
@@ -115,6 +87,7 @@ export const Login = () => {
                                 <input 
                                     type="text" 
                                     className="p025" 
+                                    value={userInput.email}
                                     onChange={(e) => setUserInput({...userInput, email: e.target.value})} 
                                 />
                             </div>
@@ -123,27 +96,29 @@ export const Login = () => {
                                 <input 
                                     type="password" 
                                     className="p025" 
+                                    value={userInput.password}
                                     onChange={(e) => setUserInput({...userInput, password: e.target.value})} 
                                 />
                                 <p className="text-s m025">Don't have an account yet? 
                                     <Link to="/signup">Sign Up here</Link>
                                 </p>
                             </div>
+                            <button 
+                                className="btn width-100 btn-primary my-1"
+                                onClick={() => {
+                                    setUserInput({ ...userInput, email: "testing@gmail.com", password: "testing" });
+                                }}
+                            >
+                                Guest Login
+                            </button>
+
                             <input 
                                 type="submit" 
                                 value={loading ? "Logging in..." : "Login"} 
                                 className="btn width-100 btn-primary btn-width-100 p025"
                             /> 
+
                         </form>
-                    }
-                    
-                    {!token && 
-                        <button 
-                            className="btn btn-primary my-1"
-                            onClick={() => guestLoginHandler()}
-                        >
-                            Guest Login
-                        </button>
                     }
                 </div>
             </div>
