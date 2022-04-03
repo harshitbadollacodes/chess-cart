@@ -64,7 +64,11 @@ export const Wishlist = () => {
                 {wishlistState.wishlist.map(item => (
                     <li key={item.product._id} className="p025 product-card-width">
                         <Link to={`/product/${item.product._id}`}>
-                            <img src={item.product.image} alt={item.product.name} className="width-100" />
+                            <img 
+                                src={item.product.image} 
+                                alt={item.product.name} 
+                                className="width-100 img-height" 
+                            />
                         </Link>   
                         <div className="flex-row items-center justify-between">
                             <Link className="" to={`/product/${item.product._id}`}>
