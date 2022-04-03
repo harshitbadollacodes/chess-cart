@@ -110,7 +110,7 @@ export const ProductDetails = () => {
                     <div className="flex-col mx-1 justify-space-evenly">
                         <div>
                             <h3>{product.name}</h3>
-                            <p>{product.brand}</p>
+                            <h3>{product.brand}</h3>
                             <p>{product.description}</p>
                         </div>
                             <h3>Rs. {product.price}</h3>
