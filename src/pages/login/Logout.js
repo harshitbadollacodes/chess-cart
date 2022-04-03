@@ -31,8 +31,11 @@ export const Logout = () => {
 
     return ( 
         <div>
-            <button className="btn btn-primary" onClick={logoutHandler}>
-                want to Logout ?
+            <button 
+                className="my-1 ml-10 btn btn-primary" 
+                onClick={logoutHandler}
+            >
+                Want to Logout ?
             </button>
         </div>
      );
