@@ -106,7 +106,7 @@ export const Login = () => {
                             <button 
                                 className="btn width-100 btn-primary my-1"
                                 onClick={() => {
-                                    setUserInput({ ...userInput, email: "testing@gmail.com", password: "testing" });
+                                    setUserInput({ ...userInput, email: "harshitbadolla@yahoo.com", password: "testing" });
                                 }}
                             >
                                 Guest Login
